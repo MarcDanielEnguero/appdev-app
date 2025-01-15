@@ -1,31 +1,40 @@
-// app/_layout.tsx
-import { Stack, Slot } from 'expo-router';
-import "../global.css"
-import { SafeAreaView, View } from 'react-native';
-import { useColorScheme } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { Stack } from "expo-router";
+import "../global.css";
+import { View } from "react-native";
+import { useColorScheme } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
+import { Text } from "react-native";
+
+Object.assign(Text, {
+  defaultProps: {
+    style: {
+      color: "#ffffff", // Set global text color to white
+    },
+  },
+});
 
 export default function Layout() {
   const theme = useColorScheme();
-  const isDark = theme === 'dark';
+  const isDark = theme === "dark";
 
   return (
-    
-    <View  className={`flex-1 ${ isDark ? '' : 'bg-[#171717]'} pt-14`}>
-        <StatusBar style='light'/>
-        <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: {
-            backgroundColor: 'transparent', // Ensure Stack's content doesn't override the parent View
-          },
-        }}
+    <SafeAreaProvider>
+      <SafeAreaView 
+        className={`flex-1 ${isDark ? "bg-[#000000]" : "bg-[#171717]"}`}
+        edges={['top']}
       >
-        <Stack.Screen name="(tabs)" />
-      </Stack>
-    {/* <Slot /> */}
-    </View>
-
-
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: {
+              backgroundColor: "transparent",
+            },
+          }}
+        />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }

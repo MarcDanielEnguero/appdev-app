@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Following() {
   return (
-    <View>
+    <View className='flex-1'>
       <Text>Following</Text>
     </View>
   )
