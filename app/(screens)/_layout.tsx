@@ -31,6 +31,17 @@ function BottomTabScreen() {
       />
       
       <BottomTab.Screen
+        name="find"
+        component={IndexLayout} // Showing the TopTabScreen component here
+        options={{
+          tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="search" color={color} size={size} /> // Home icon
+          ),
+        }}
+      />
+
+      <BottomTab.Screen
         name="Create Post"
         component={UploadScreen} // Showing the TopTabScreen component here
         options={{
@@ -55,6 +66,28 @@ function BottomTabScreen() {
           tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
           tabBarIcon: ({ color, size }) => (
             <Icon name="plus" color={color} size={size} /> // Home icon
+          ),
+        }}
+      />
+
+<BottomTab.Screen
+        name="notification"
+        component={IndexLayout} // Showing the TopTabScreen component here
+        options={{
+          tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="bell" color={color} size={size} /> // Home icon
+          ),
+        }}
+      />
+
+<BottomTab.Screen
+        name="Profile"
+        component={IndexLayout} // Showing the TopTabScreen component here
+        options={{
+          tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} /> // Home icon
           ),
         }}
       />
