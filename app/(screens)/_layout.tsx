@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Feather';
 import IndexLayout from ".";
 import UploadScreen from "./upload";
-
+import { View } from "react-native";
 
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -15,8 +15,13 @@ function BottomTabScreen() {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#171717" }, // Dark background for bottom tab bar
+        tabBarStyle: { backgroundColor: "#171717", 
+          
+        }, // Dark background for bottom tab bar
         tabBarLabelStyle: { color: "#ffffff" }, // White text for labels
+        tabBarIconStyle:{
+          marginTop: 5
+        }
       }}
     >
       <BottomTab.Screen
@@ -65,7 +70,8 @@ function BottomTabScreen() {
           },
           tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
           tabBarIcon: ({ color, size }) => (
-            <Icon name="plus" color={color} size={size} /> // Home icon
+                  <Icon name="plus" color={color} size={size} />
+
           ),
         }}
       />
@@ -85,7 +91,9 @@ function BottomTabScreen() {
         name="Profile"
         component={IndexLayout} // Showing the TopTabScreen component here
         options={{
-          tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
+          tabBarLabelStyle: { 
+            display: 'none',
+          }, // Hide label for the icon
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} /> // Home icon
           ),
