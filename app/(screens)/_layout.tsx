@@ -1,10 +1,14 @@
+// app/(screens)/_layout.tsx
 import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Feather';
-import ForYou from "."; // assuming you have a ForYou component
-import Following from "./following"; // assuming you have a Following component
+import ForYou from ".";
+import Following from "./following";
+import { AuthProvider } from '../(screens)/AuthContext';
+import LoginScreen from './LoginScreen';
+import { useAuth } from '../(screens)/AuthContext';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -14,9 +18,9 @@ function TopTabScreen() {
   return (
     <TopTab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: "#171717" }, // Dark background for top tab bar
-        tabBarIndicatorStyle: { backgroundColor: "#ffffff" }, // White indicator color
-        tabBarLabelStyle: { color: "#ffffff" }, // White text color for labels
+        tabBarStyle: { backgroundColor: "#171717" },
+        tabBarIndicatorStyle: { backgroundColor: "#ffffff" },
+        tabBarLabelStyle: { color: "#ffffff" },
       }}
     >
       <TopTab.Screen name="For You" component={ForYou} />
@@ -30,27 +34,27 @@ function BottomTabScreen() {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#171717" }, // Dark background for bottom tab bar
-        tabBarLabelStyle: { color: "#ffffff" }, // White text for labels
+        tabBarStyle: { backgroundColor: "#171717" },
+        tabBarLabelStyle: { color: "#ffffff" },
       }}
     >
       <BottomTab.Screen
         name="Home"
-        component={TopTabScreen} // Showing the TopTabScreen component here
+        component={TopTabScreen}
         options={{
-          tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
+          tabBarLabelStyle: { display: 'none' },
           tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} /> // Home icon
+            <Icon name="home" color={color} size={size} />
           ),
         }}
       />
       <BottomTab.Screen
         name="Discover"
-        component={TopTabScreen} // Showing another instance of TopTabScreen
+        component={TopTabScreen}
         options={{
           tabBarLabelStyle: { display: 'none' },
           tabBarIcon: ({ color, size }) => (
-            <Icon name="compass" color={color} size={size} /> // Compass icon
+            <Icon name="compass" color={color} size={size} />
           ),
         }}
       />
@@ -58,20 +62,42 @@ function BottomTabScreen() {
   );
 }
 
-export default function TabLayout() {
+function MainNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
         headerStyle: {
-          backgroundColor: 'transparent', // Transparent background for stack header
-          elevation: 0, // Remove Android shadow
-          shadowOpacity: 0, // Remove iOS shadow
+          backgroundColor: 'transparent',
+          elevation: 0,
+          shadowOpacity: 0,
         },
-        headerTintColor: 'transparent', // Hide any back icon or text
+        headerTintColor: 'transparent',
       }}
     >
       <Stack.Screen name="Root" component={BottomTabScreen} />
     </Stack.Navigator>
+  );
+}
+
+function AppNavigator() {
+  const { isAuthenticated } = useAuth();
+
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {!isAuthenticated ? (
+        <Stack.Screen name="Login" component={LoginScreen} />
+      ) : (
+        <Stack.Screen name="Main" component={MainNavigator} />
+      )}
+    </Stack.Navigator>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <AuthProvider>
+      <AppNavigator />
+    </AuthProvider>
   );
 }
