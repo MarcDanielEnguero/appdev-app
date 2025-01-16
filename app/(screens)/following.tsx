@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Following() {
   return (
-    <View className='flex-1'>
+    <View className='flex-1 bg-[#171717] '>
       <Text>Following</Text>
     </View>
   )

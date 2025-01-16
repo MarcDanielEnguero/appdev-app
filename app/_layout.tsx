@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { useColorScheme } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-
+import Messages from "./(screens)/messages";
 import { Text } from "react-native";
 
 Object.assign(Text, {
@@ -26,6 +26,7 @@ export default function Layout() {
         edges={['top']}
       >
         <StatusBar style="light" />
+        
         <Stack
           screenOptions={{
             headerShown: false,

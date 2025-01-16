@@ -1,16 +1,11 @@
 // app/(screens)/_layout.tsx
 import React from "react";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Feather';
-import ForYou from ".";
-import Following from "./following";
-import { AuthProvider } from '../(screens)/AuthContext';
-import LoginScreen from './LoginScreen';
-import { useAuth } from '../(screens)/AuthContext';
+import ForYou from "."; // assuming you have a ForYou component
+import Following from "./following"; // assuming you have a Following component
 
-const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -18,9 +13,9 @@ function TopTabScreen() {
   return (
     <TopTab.Navigator
       screenOptions={{
-        tabBarStyle: { backgroundColor: "#171717" },
-        tabBarIndicatorStyle: { backgroundColor: "#ffffff" },
-        tabBarLabelStyle: { color: "#ffffff" },
+        tabBarStyle: { backgroundColor: "#171717" }, // Dark background for top tab bar
+        tabBarIndicatorStyle: { backgroundColor: "#ffffff" }, // White indicator color
+        tabBarLabelStyle: { color: "#ffffff" }, // White text color for labels
       }}
     >
       <TopTab.Screen name="For You" component={ForYou} />
@@ -34,13 +29,13 @@ function BottomTabScreen() {
     <BottomTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: "#171717" },
-        tabBarLabelStyle: { color: "#ffffff" },
+        tabBarStyle: { backgroundColor: "#171717" }, // Dark background for bottom tab bar
+        tabBarLabelStyle: { color: "#ffffff" }, // White text for labels
       }}
     >
       <BottomTab.Screen
         name="Home"
-        component={TopTabScreen}
+        component={TopTabScreen} // Showing the TopTabScreen component here
         options={{
           tabBarLabelStyle: { display: 'none' },
           tabBarIcon: ({ color, size }) => (
@@ -48,16 +43,33 @@ function BottomTabScreen() {
           ),
         }}
       />
+      
       <BottomTab.Screen
-        name="Discover"
-        component={TopTabScreen}
+        name="find"
+        component={IndexLayout} // Showing the TopTabScreen component here
         options={{
-          tabBarLabelStyle: { display: 'none' },
+          tabBarLabelStyle: { display: 'none' }, // Hide label for the icon
           tabBarIcon: ({ color, size }) => (
-            <Icon name="compass" color={color} size={size} />
+            <Icon name="search" color={color} size={size} /> // Home icon
           ),
         }}
       />
+
+      <BottomTab.Screen
+        name="Discover"
+        component={TopTabScreen} // Showing another instance of TopTabScreen
+        options={{
+          tabBarLabelStyle: { 
+            display: 'none',
+          }, // Hide label for the icon
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="compass" color={color} size={size} /> // Compass icon
+          ),
+        }}
+      />
+
+
+
     </BottomTab.Navigator>
   );
 }
